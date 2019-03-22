@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NkVideoPlayer</string>
+    <string name="app_name">NkPlayer</string>
     <string name="todo">TODO</string>
 
     <string name="splash_text">Player</string>

@@ -10,8 +10,6 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.GestureDetectorCompat;
-import android.view.GestureDetector;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +17,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
+
+import com.swipper.library.Swipper;
 
 public class ViewVideo extends Activity implements View.OnClickListener {
 
@@ -85,28 +85,31 @@ public class ViewVideo extends Activity implements View.OnClickListener {
 
         // Create the gesture detector with the gesture listener.
         gestureDetectorCompat = new GestureDetectorCompat(this, gestureListener);
+
+
+
     }
 
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        int action = event.getAction();
-        int keyCode = event.getKeyCode();
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_VOLUME_UP:
-                if (action == KeyEvent.ACTION_DOWN) {
-                    audioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
-                }
-                return true;
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-                if (action == KeyEvent.ACTION_DOWN) {
-                    audioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_PLAY_SOUND);
-                }
-                return true;
-            default:
-                return super.dispatchKeyEvent(event);
-        }
-    }
+//    @Override
+//    public boolean dispatchKeyEvent(KeyEvent event) {
+//        int action = event.getAction();
+//        int keyCode = event.getKeyCode();
+//        switch (keyCode) {
+//            case KeyEvent.KEYCODE_VOLUME_UP:
+//                if (action == KeyEvent.ACTION_DOWN) {
+//                    audioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+//                }
+//                return true;
+//            case KeyEvent.KEYCODE_VOLUME_DOWN:
+//                if (action == KeyEvent.ACTION_DOWN) {
+//                    audioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_PLAY_SOUND);
+//                }
+//                return true;
+//            default:
+//                return super.dispatchKeyEvent(event);
+//        }
+//    }
 
     private void LockIsonInvisible() {
         new Handler().postDelayed(new Runnable() {
@@ -248,7 +251,6 @@ public class ViewVideo extends Activity implements View.OnClickListener {
 
 
     }
-
 
 
 /*

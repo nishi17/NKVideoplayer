@@ -1,8 +1,10 @@
 package com.nishi.developer.nkvideoplayer;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.media.AudioManager;
 import android.util.Log;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
@@ -27,10 +29,13 @@ public class DetectSwipeGestureListener extends GestureDetector.SimpleOnGestureL
         this.activity = activity;
     }
 
+    private int sWidth, sHeight;
+
     /* This method is invoked when a swipe gesture happened. */
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+
         // Get swipe delta value in x axis.
         float deltaX = e1.getX() - e2.getX();
 
@@ -43,26 +48,78 @@ public class DetectSwipeGestureListener extends GestureDetector.SimpleOnGestureL
 
         // Only when swipe distance between minimal and maximal distance value then we treat it as effective swipe
         if ((deltaXAbs >= MIN_SWIPE_DISTANCE_X) && (deltaXAbs <= MAX_SWIPE_DISTANCE_X)) {
+
             if (deltaX > 0) {
 
-                // this.activity.displayMessage("Swipe to left");
+                Log.e("left ", "left");
+
             } else {
-                //  this.activity.displayMessage("Swipe to right");
+
+                Log.e("right ", "right");
             }
         }
+        getScreenSize();
 
         if ((deltaYAbs >= MIN_SWIPE_DISTANCE_Y) && (deltaYAbs <= MAX_SWIPE_DISTANCE_Y)) {
+
             if (deltaY > 0) {
-                audioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
-                Log.e("up", "   up");
-                //  this.activity.displayMessage("Swipe to up");
+
+                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
+
+
+                /* with out Ui of volume control */
+                // audioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+
+                Log.e("up ", "   up  - " + e1.getX());
+
+
             } else {
-                // this.activity.displayMessage("Swipe to down");
+
+                Log.e("down ", "down");
+
+
+                //touch is start
+                float downX = e1.getX();
+                float downY = e2.getY();
+                if (e2.getX() < (sWidth / 2)) {
+
+                    //here check touch is screen left or right side
+                    intLeft = true;
+                    intRight = false;
+
+                } else if (e1.getX() > (sWidth / 2)) {
+
+                    //here check touch is screen left or right side
+                    intLeft = false;
+                    intRight = true;
+
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
+
+                }
+
+
+
+                /* with out Ui of volume control */
+
+                //  audioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_PLAY_SOUND);
             }
         }
-
-
         return true;
+    }
+
+    private boolean intLeft, intRight;
+    private long diffX, diffY;
+    private Display display;
+    private Point size;
+    private float downX, downY;
+    private AudioManager mAudioManager;
+
+    private void getScreenSize() {
+        display = getActivity().getWindowManager().getDefaultDisplay();
+        size = new Point();
+        display.getSize(size);
+        sWidth = size.x;
+        sHeight = size.y;
     }
 
     // Invoked when single tap screen.

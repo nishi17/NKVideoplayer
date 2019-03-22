@@ -173,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
         mContext = MainActivity.this;
 
 
-
         permission_gallery = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -282,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
 
             String filename = videocursor.getString(video_column_index);
 
-            Intent intent = new Intent(MainActivity.this, ViewVideo.class);
+            Intent intent = new Intent(MainActivity.this, VideoViewDemo.class);
 
             intent.putExtra("videofilename", filename);
 
@@ -345,30 +344,39 @@ public class MainActivity extends AppCompatActivity {
                 // id += " Size(KB):" +
                 // videocursor.getString(video_column_index);
 
+
+                int i = video_column_index / 1024;
+
+
                 holder.txtTitle.setText(id);
 
                 holder.txtSize.setText(" Size(KB):" + videocursor.getString(video_column_index));
 
                 String[] proj = {MediaStore.Video.Media._ID, MediaStore.Video.Media.DISPLAY_NAME, MediaStore.Video.Media.DATA};
 
-                @SuppressWarnings("deprecation")
-                Cursor cursor = managedQuery(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, proj, MediaStore.Video.Media.DISPLAY_NAME + "=?", new String[]{id}, null);
+                try {
 
-                cursor.moveToFirst();
+                    @SuppressWarnings("deprecation")
+                    Cursor cursor = managedQuery(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, proj, MediaStore.Video.Media.DISPLAY_NAME + "=?", new String[]{id}, null);
 
-                long ids = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media._ID));
+                    cursor.moveToFirst();
 
-                ContentResolver crThumb = getContentResolver();
+                    long ids = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media._ID));
 
-                BitmapFactory.Options options = new BitmapFactory.Options();
+                    ContentResolver crThumb = getContentResolver();
 
-                options.inSampleSize = 1;
+                    BitmapFactory.Options options = new BitmapFactory.Options();
 
-                Bitmap curThumb = MediaStore.Video.Thumbnails.getThumbnail(crThumb, ids, MediaStore.Video.Thumbnails.MICRO_KIND, options);
+                    options.inSampleSize = 1;
 
-                holder.thumbImage.setImageBitmap(curThumb);
+                    Bitmap curThumb = MediaStore.Video.Thumbnails.getThumbnail(crThumb, ids, MediaStore.Video.Thumbnails.MICRO_KIND, options);
 
-                curThumb = null;
+                    holder.thumbImage.setImageBitmap(curThumb);
+
+                    curThumb = null;
+                } catch (Exception e) {
+
+                }
 
             } /*
              * else holder = (ViewHolder) convertView.getTag();

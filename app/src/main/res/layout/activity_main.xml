@@ -7,19 +7,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:text="List of Videos"
-        android:textColor="@android:color/black"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
+        android:text="List of Videos"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textColor="@android:color/black" />
 
     <ListView
         android:id="@+id/PhoneVideoList"
-        android:layout_marginTop="5dp"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_marginTop="5dp"
         android:cacheColorHint="#00000000" />
-</LinearLayout><!--
+</LinearLayout>
+
+    <!--
     <?xml version="1.0" encoding="utf-8"?>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"

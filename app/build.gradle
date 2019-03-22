@@ -32,4 +32,7 @@ dependencies {
  //  implementation 'nl.dionsegijn:konfetti:1.1.2'
     //implementation 'com.github.jetradarmobile:android-snowfall:1.2.0'
 
+
+    implementation 'com.swipper.library:library:0.1.1'
+
 }
