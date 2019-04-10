@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_video_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal"
@@ -35,8 +36,8 @@
             android:layout_width="250dip"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:textColor="#00FF00"
-            android:textSize="12dp"
+            android:textColor="#080C08"
+            android:textSize="13sp"
             android:textStyle="italic" />
     </LinearLayout>
 

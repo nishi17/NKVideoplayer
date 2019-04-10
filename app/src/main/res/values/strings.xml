@@ -3,4 +3,10 @@
     <string name="todo">TODO</string>
 
     <string name="splash_text">Player</string>
+    <string name="toast_file_exists">The file %1$s already exists. Please choose a different file name.</string>
+    <string name="delete">Delete</string>
+    <string name="ok">Ok</string>
+    <string name="file_save_recording">Name this recording</string>
+    <string name="file_name_hint">Untitled on 2019-01-15 05:20:00</string>
+
 </resources>
